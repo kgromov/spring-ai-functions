@@ -8,8 +8,6 @@ import org.springframework.web.client.RestClient;
 
 import java.util.function.Function;
 
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
-
 @RequiredArgsConstructor
 @Slf4j
 public class WeatherServiceFunction implements Function<WeatherRequest, WeatherResponse> {
@@ -30,6 +28,10 @@ public class WeatherServiceFunction implements Function<WeatherRequest, WeatherR
                     return uriBuilder.build();
                 }).retrieve()
                 .body(WeatherResponse.class);
+    }
+
+    private boolean isNotBlank(String value) {
+        return value != null && !value.isBlank();
     }
 }
 
