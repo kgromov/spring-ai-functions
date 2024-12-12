@@ -22,7 +22,7 @@ public class AIServiceImpl implements AIService {
     public Answer getStockPrice(Question question) {
         var callback = FunctionCallback.builder()
                 .description("Get the current stock price for a stock symbol")
-                .method("apply", StockPriceRequest.class)
+                .method("stockQuoteFunction", StockPriceRequest.class)
                 .targetClass(StockQuoteFunction.class)
                 .targetObject(stockQuoteFunction)
                 .build();
