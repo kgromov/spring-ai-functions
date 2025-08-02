@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.client.support.RestClientAdapter;
+import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
 import java.util.function.Function;
 
@@ -31,13 +33,30 @@ public class AiFunctionsConfig {
     }
 
     @Bean
-    @Description("Get the current weather for a location")
-    Function<WeatherRequest, WeatherResponse> currentWeatherFunction(RestClient.Builder restClientBuilder) {
-        return new WeatherServiceFunction(restClientBuilder.baseUrl(settings.weatherUrl()).build());
+    HttpServiceProxyFactory proxyFactory(RestClient.Builder restClientBuilder) {
+        return HttpServiceProxyFactory.builder()
+                .exchangeAdapter(RestClientAdapter.create(restClientBuilder.build()))
+                .build();
     }
 
     @Bean
-    StockQuoteFunction stockQuoteFunction(RestClient.Builder restClientBuilder) {
-        return new StockQuoteFunction(restClientBuilder.baseUrl(settings.stockUrl()).build());
+    WeatherServiceClient weatherServiceClient(HttpServiceProxyFactory proxyFactory) {
+        return proxyFactory.createClient(WeatherServiceClient.class);
+    }
+
+    @Bean
+    StockQuoteClient stockQuoteClient(HttpServiceProxyFactory proxyFactory) {
+        return proxyFactory.createClient(StockQuoteClient.class);
+    }
+
+    @Bean
+    @Description("Get the current weather for a location")
+    Function<WeatherRequest, WeatherResponse> currentWeatherFunction(WeatherServiceClient weatherClient) {
+        return new WeatherServiceFunction(weatherClient);
+    }
+
+    @Bean
+    StockQuoteFunction stockQuoteFunction(StockQuoteClient stockClient) {
+        return new StockQuoteFunction(stockClient);
     }
 }
