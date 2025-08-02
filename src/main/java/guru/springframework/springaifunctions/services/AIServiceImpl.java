@@ -5,7 +5,6 @@ import guru.springframework.springaifunctions.functions.StockQuoteFunction;
 import guru.springframework.springaifunctions.model.Answer;
 import guru.springframework.springaifunctions.model.Question;
 import guru.springframework.springaifunctions.model.StockPriceRequest;
-import guru.springframework.springaifunctions.model.StockPriceResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatModel;

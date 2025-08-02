@@ -16,7 +16,7 @@ public class StockQuoteFunction implements Function<StockPriceRequest, StockPric
         try {
             return restClient
                     .get()
-                    .uri(uriBuilder -> uriBuilder.queryParam("ticker", request.ticker()).build())
+                    .uri(uriBuilder -> uriBuilder.queryParam("ticker", request.getTicker()).build())
                     .retrieve()
                     .body(StockPriceResponse.class);
         } catch (Exception e) {
