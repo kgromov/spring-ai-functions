@@ -15,7 +15,7 @@ public class WeatherServiceFunction implements Function<WeatherRequest, WeatherR
 
     @Override
     public WeatherResponse apply(WeatherRequest weatherRequest) {
-        return weatherClient.getStockPrice(weatherRequest);
+        return weatherClient.getWeather(weatherRequest);
     }
 
     private boolean isNotBlank(String value) {

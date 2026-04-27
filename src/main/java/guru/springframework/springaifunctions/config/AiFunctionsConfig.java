@@ -1,19 +1,18 @@
 package guru.springframework.springaifunctions.config;
 
-import guru.springframework.springaifunctions.functions.StockQuoteFunction;
-import guru.springframework.springaifunctions.functions.WeatherServiceFunction;
-import guru.springframework.springaifunctions.model.WeatherRequest;
-import guru.springframework.springaifunctions.model.WeatherResponse;
+import guru.springframework.springaifunctions.tools.StockTools;
+import guru.springframework.springaifunctions.tools.WeatherTools;
 import lombok.RequiredArgsConstructor;
+import org.springframework.ai.support.ToolCallbacks;
+import org.springframework.ai.tool.ToolCallback;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Description;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.support.RestClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
-import java.util.function.Function;
+import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -50,13 +49,7 @@ public class AiFunctionsConfig {
     }
 
     @Bean
-    @Description("Get the current weather for a location")
-    WeatherServiceFunction currentWeatherFunction(WeatherServiceClient weatherClient) {
-        return new WeatherServiceFunction(weatherClient);
-    }
-
-    @Bean
-    StockQuoteFunction stockQuoteFunction(StockQuoteClient stockClient) {
-        return new StockQuoteFunction(stockClient);
+    public List<ToolCallback> mcpTools(WeatherTools weatherTools, StockTools stockTools) {
+        return List.of(ToolCallbacks.from(weatherTools, stockTools));
     }
 }

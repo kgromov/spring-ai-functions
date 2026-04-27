@@ -13,16 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class QuestionController {
 
-    private final AIService AIService;
+    private final AIService aiService;
 
     @PostMapping("/weather")
     public Answer askQuestion(@RequestBody Question question) {
-        return AIService.getAnswer(question);
+        return aiService.getAnswer(question);
     }
 
     @PostMapping("/stock")
     public Answer getStockPrice(@RequestBody Question question) {
-        return AIService.getStockPrice(question);
+        return aiService.getStockPrice(question);
     }
 
 }

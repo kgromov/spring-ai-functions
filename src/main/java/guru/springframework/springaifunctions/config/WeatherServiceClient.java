@@ -5,6 +5,6 @@ import guru.springframework.springaifunctions.model.WeatherResponse;
 import org.springframework.web.service.annotation.GetExchange;
 
 public interface WeatherServiceClient {
-    @GetExchange("https://api.api-ninjas.com/v1/stockprice")
-    WeatherResponse getStockPrice(WeatherRequest weatherRequest);
+    @GetExchange("https://api.api-ninjas.com/v1/weather")
+    WeatherResponse getWeather(WeatherRequest weatherRequest);
 }
