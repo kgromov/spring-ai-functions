@@ -2,14 +2,9 @@ spring:
   application:
     name: spring-ai-functions
   ai:
-    openai:
-      api-key: ${OPENAI_API_KEY}
+    ollama:
       chat:
-        options:
-          model: gpt-4o
-      embedding:
-        options:
-          model: text-embedding-3-small
+        model: llama3.1
 
 api.ninjas:
   api-key: ${API_NINJAS_KEY}
