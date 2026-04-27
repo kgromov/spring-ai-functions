@@ -51,7 +51,7 @@ public class AiFunctionsConfig {
 
     @Bean
     @Description("Get the current weather for a location")
-    Function<WeatherRequest, WeatherResponse> currentWeatherFunction(WeatherServiceClient weatherClient) {
+    WeatherServiceFunction currentWeatherFunction(WeatherServiceClient weatherClient) {
         return new WeatherServiceFunction(weatherClient);
     }
 
